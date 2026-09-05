@@ -1,0 +1,26 @@
+Licensing of the legal document templates in this directory
+==========================================================
+
+Every Markdown file in this "templates" directory is a standard legal
+agreement template published by Common Paper (https://commonpaper.com,
+https://github.com/CommonPaper).
+
+All of these templates are free to use and modify under the
+Creative Commons Attribution 4.0 International License (CC BY 4.0):
+
+    https://creativecommons.org/licenses/by/4.0/
+
+Under CC BY 4.0 you are free to share and adapt this material for any
+purpose, even commercially, provided you give appropriate credit to
+Common Paper, provide a link to the license, and indicate if changes
+were made.
+
+Attribution
+-----------
+"Common Paper" standard agreements, https://commonpaper.com/standards/,
+licensed under CC BY 4.0. Files in this directory were retrieved from
+the Common Paper GitHub organization (https://github.com/CommonPaper)
+on 2026-09-05 and may have been modified for use in this project.
+
+Note: Common Paper does not provide legal advice, and use of these
+templates does not create an attorney-client relationship.

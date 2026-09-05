@@ -1,0 +1,71 @@
+{
+  "source": {
+    "name": "Common Paper",
+    "url": "https://github.com/CommonPaper",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "retrieved": "2026-09-05"
+  },
+  "templates": [
+    {
+      "name": "AI Addendum",
+      "description": "Common Paper Standard AI Addendum (Version 1.0). Supplements an existing product agreement with terms for AI services, covering use of inputs and outputs, ownership, model training and non-training improvement, restrictions, and AI-specific disclaimers.",
+      "filename": "AI-Addendum.md"
+    },
+    {
+      "name": "Business Associate Agreement",
+      "description": "Common Paper Standard Business Associate Agreement (Version 1.0). HIPAA business associate agreement governing how a provider may use, disclose, and safeguard protected health information (PHI) on behalf of a covered entity, including subcontractor, breach notification, and audit obligations.",
+      "filename": "BAA.md"
+    },
+    {
+      "name": "Cloud Service Agreement",
+      "description": "Common Paper Standard Cloud Service Agreement (Version 2.1). Standard terms for subscribing to a cloud/SaaS product, covering access and use, support, customer content, usage data and machine learning, payment and taxes, term and termination, warranties, limitation of liability, indemnification, and confidentiality.",
+      "filename": "CSA.md"
+    },
+    {
+      "name": "Design Partner Agreement",
+      "description": "Common Paper Standard Design Partner Agreement. Terms for an early-access design partner program in which a partner receives pre-release product access in exchange for structured feedback and program participation, with feedback assigned to the provider.",
+      "filename": "Design-Partner-Agreement.md"
+    },
+    {
+      "name": "Data Processing Agreement",
+      "description": "Common Paper Data Processing Agreement. GDPR and UK GDPR data processing terms between a controller and processor, covering processing instructions, security, subprocessors, data subject requests, international transfers, and standard contractual clauses.",
+      "filename": "DPA.md"
+    },
+    {
+      "name": "Mutual NDA - Cover Page",
+      "description": "Common Paper Mutual Non-Disclosure Agreement Cover Page (Version 1.0). Fillable cover page that incorporates the Mutual NDA Standard Terms by reference and captures the purpose, MNDA term, term of confidentiality, governing law and jurisdiction, modifications, and signature blocks.",
+      "filename": "Mutual-NDA-coverpage.md"
+    },
+    {
+      "name": "Mutual NDA - Standard Terms",
+      "description": "Common Paper Mutual Non-Disclosure Agreement Standard Terms (Version 1.0). Reusable mutual confidentiality terms for disclosing and protecting confidential information while evaluating a potential business relationship, covering permitted use, exceptions, required disclosures, term, return or destruction, and equitable relief.",
+      "filename": "Mutual-NDA.md"
+    },
+    {
+      "name": "Partnership Agreement",
+      "description": "Common Paper Standard Partnership Agreement (Version 1.0). Terms for a business partnership covering each party's obligations, payment and taxes, a mutual trademark/brand element license, confidentiality, intellectual property, and general terms.",
+      "filename": "Partnership-Agreement.md"
+    },
+    {
+      "name": "Pilot Agreement",
+      "description": "Common Paper Standard Pilot Agreement (Version 1.1). Terms for a time-limited pilot or proof-of-concept evaluation of a product, covering pilot access and license, evaluation purpose, customer content, feedback and usage data, restrictions, term and termination, and disclaimers.",
+      "filename": "Pilot-Agreement.md"
+    },
+    {
+      "name": "Professional Services Agreement",
+      "description": "Common Paper Standard Professional Services Agreement. Terms for delivering professional services and deliverables under one or more statements of work (SOWs), covering fees, change orders, acceptance, intellectual property in deliverables, subcontractors, warranties, and liability.",
+      "filename": "PSA.md"
+    },
+    {
+      "name": "Service Level Agreement",
+      "description": "Common Paper Service Level Agreement (Version 2.0). Service level commitments for a cloud service, covering target uptime and how availability is calculated, support response times, and service credits as the remedy for missed targets.",
+      "filename": "SLA.md"
+    },
+    {
+      "name": "Software License Agreement",
+      "description": "Common Paper Standard Software License Agreement (Version 1.1). Terms for licensing installed or self-hosted software, covering license grant and scope, restrictions, delivery, support and maintenance, fees, proprietary rights, warranties, limitation of liability, and indemnification.",
+      "filename": "Software-License-Agreement.md"
+    }
+  ]
+}
