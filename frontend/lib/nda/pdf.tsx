@@ -27,6 +27,9 @@ import type { NdaFormData, Party } from "./types";
  * fetched over the network while generating a document.
  */
 
+/** US Letter height in PostScript points, matching `<Page size="LETTER">`. */
+const LETTER_HEIGHT = 792;
+
 const COLORS = {
   ink: "#1e293b",
   heading: "#0f172a",
@@ -123,9 +126,13 @@ const styles = StyleSheet.create({
     borderColor: COLORS.rule,
   },
   attribution: { marginTop: 18, fontSize: 8, color: COLORS.muted },
+  // Anchored from the top rather than with `bottom`. The page's inherited
+  // `lineHeight` mis-measures a `fixed` element positioned any other way, and
+  // react-pdf then drops it from the document silently — no warning, no gap,
+  // just no page numbers. Covered by tests/pdf.test.tsx.
   pageNumber: {
     position: "absolute",
-    bottom: 28,
+    top: LETTER_HEIGHT - 38,
     left: 56,
     right: 56,
     textAlign: "center",

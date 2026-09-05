@@ -14,10 +14,39 @@ npm install
 npm run dev      # http://localhost:3000
 npm run build    # production build
 npm run lint
+npm test         # vitest
 ```
 
 There is no backend. Everything — form state, document rendering and PDF
 generation — happens in the browser.
+
+## Tests
+
+`npm test`. They run in plain Node with no browser and no jsdom, because
+`@react-pdf/renderer` renders server-side just as well as it does in the
+browser: `tests/helpers/render-pdf.ts` produces the real PDF bytes and reads the
+text back with `pdf.js`.
+
+That matters, because **the bugs this code has actually had were rendering
+bugs**, and unit tests over the pure functions would have passed straight
+through both of them:
+
+- A checkmark was drawn into a box too small for its line box, so react-pdf
+  dropped the glyph and every term option printed as unchecked — the parties'
+  chosen term was silently missing from the agreement.
+- A `fixed` page-number element positioned with `bottom` was silently dropped
+  because of the page's inherited `lineHeight`, so no page had a number.
+
+Neither produced an error, a warning, or a visible gap. In both cases the props
+were correct and the layout was not. So the tests assert on the *rendered
+document* — `tests/pdf.test.tsx` renders each combination of MNDA term and
+confidentiality term and checks that the tick lands next to the selected option
+and nowhere else.
+
+The rest is straightforward: `tests/segments.test.ts` covers the clause
+tokeniser (including a round-trip over every real clause), `derive.test.ts` the
+Cover Page values and date formatting, and `validate.test.ts` the required
+fields.
 
 ## How it fits together
 
