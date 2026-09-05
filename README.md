@@ -6,11 +6,20 @@
 
 `prelegal` is an early-stage project. A full description of its purpose, features, and usage will be added here as development progresses.
 
+## Repository layout
+
+| Path | Contents |
+| --- | --- |
+| `frontend/` | Next.js app — the Mutual NDA creator. See [`frontend/README.md`](frontend/README.md). |
+| `templates/` | Common Paper legal agreement templates, in Markdown. |
+| `catalog.json` | Index of the templates, with a description of each. |
+
 ## Status
 
 | Area | State |
 | --- | --- |
-| Core functionality | In progress |
+| Mutual NDA creator (frontend) | Prototype |
+| Template dataset | Complete |
 | Documentation | In progress |
 | Tests | Planned |
 | First complete release | Targeted for 2026-09-12 |
@@ -19,14 +28,20 @@
 
 - [ ] Define and document project scope
 - [ ] Implement core functionality
-- [ ] Add installation and setup instructions
+- [x] Add installation and setup instructions
 - [ ] Add usage examples
 - [ ] Add test coverage
 - [ ] Publish first complete version (target: 2026-09-12)
 
 ## Getting started
 
-Setup instructions will be provided once the initial implementation lands.
+```bash
+cd frontend
+npm install
+npm run dev      # http://localhost:3000
+```
+
+Fill in the form and download a completed Mutual NDA as a PDF.
 
 ## Contributing
 

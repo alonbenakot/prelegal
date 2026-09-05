@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/*
+ * The primary output is the generated PDF (see lib/nda/pdf.tsx). These rules
+ * are a courtesy for anyone who reaches for Ctrl+P instead: strip the app
+ * chrome so the printed page is just the agreement.
+ */
+@media print {
+  @page {
+    size: letter;
+    margin: 0.75in;
+  }
+
+  body {
+    background: #fff;
+  }
+}
