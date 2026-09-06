@@ -22,7 +22,14 @@ generation — happens in the browser.
 
 ## Tests
 
-`npm test`. They run in plain Node with no browser and no jsdom, because
+`npm test` runs two Vitest projects:
+
+| Project | Environment | Covers |
+| --- | --- | --- |
+| `node` (everything else under `tests/`) | plain Node | the pure functions, and the PDF rendered from a given `NdaFormData` |
+| `ui` (`tests/ui/**`) | jsdom | the page itself — typing in the form through to the download call |
+
+The `node` project needs no browser and no jsdom, because
 `@react-pdf/renderer` renders server-side just as well as it does in the
 browser: `tests/helpers/render-pdf.ts` produces the real PDF bytes and reads the
 text back with `pdf.js`.
@@ -43,10 +50,26 @@ document* — `tests/pdf.test.tsx` renders each combination of MNDA term and
 confidentiality term and checks that the tick lands next to the selected option
 and nowhere else.
 
+The same reasoning covers the page break: the signature block used to split in
+two, stranding the Company, Notice Address and Date rows on a page with no
+`PARTY 1` / `PARTY 2` headings above them, so nothing there said which column
+belonged to which party.
+
+`tests/ui/app.test.tsx` closes the other half of the path. The PDF tests call
+the renderer with data directly, so a field wired to the wrong state key would
+pass every one of them; the jsdom tests drive the real form and assert on what
+reaches `downloadNdaPdf`, on the file name the browser is handed, and on the
+validation that refuses to generate a half-empty agreement.
+
 The rest is straightforward: `tests/segments.test.ts` covers the clause
 tokeniser (including a round-trip over every real clause), `derive.test.ts` the
 Cover Page values and date formatting, and `validate.test.ts` the required
 fields.
+
+What no automated test here can see is layout — that a checkmark looks right,
+that the page does not scroll sideways on a phone, that the tab order makes
+sense. `tests/MANUAL.md` is the checklist for that, to be walked before
+releasing a change to the components or the PDF.
 
 ## How it fits together
 

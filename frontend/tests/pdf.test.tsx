@@ -164,6 +164,73 @@ describe("the generated PDF", () => {
     });
   });
 
+  // Regression: the block used to split at a page break, leaving the Company,
+  // Notice Address and Date rows on a page with no PARTY 1 / PARTY 2 headings.
+  describe("the signature block", () => {
+    const LABELS = [
+      "Signature",
+      "Print Name",
+      "Title",
+      "Company",
+      "Notice Address",
+      "Date",
+    ];
+
+    /** The page the signature block sits on, asserting it is all on one page. */
+    async function blockPage(data: NdaFormData, context: string) {
+      const pages = await textItemsByPage(await renderPdf(<NdaPdf data={data} />));
+      const page = pages.findIndex((items) => items.includes("PARTY 1"));
+      expect(page, context).toBeGreaterThan(-1);
+      for (const label of LABELS) {
+        expect(pages[page], `${label} — ${context}`).toContain(label);
+      }
+      return page;
+    }
+
+    it("stays whole however far down the page it starts", async () => {
+      // Padding the text above the block walks it down the page and over a
+      // boundary. The sweep asserts it actually crosses one: were the block to
+      // land comfortably mid-page at every length, the test would still pass
+      // with the fix removed and prove nothing.
+      const pages: number[] = [];
+      for (let length = 0; length <= 4000; length += 400) {
+        pages.push(
+          await blockPage(
+            complete({ modifications: "word ".repeat(length / 5) }),
+            `${length} characters of modifications`,
+          ),
+        );
+      }
+      expect(
+        new Set(pages).size,
+        "the sweep no longer spans a page break — widen it",
+      ).toBeGreaterThan(1);
+    });
+
+    it("survives a notice address far longer than any real one", async () => {
+      // `wrap={false}` clips rather than flows a block taller than the page, so
+      // the block has to stay well inside one page even for a verbose address.
+      const address = "Suite 100, 123 Longest Street Name In The State, ".repeat(
+        16,
+      );
+      const data = complete({
+        party1: { ...complete().party1, noticeAddress: address },
+        party2: { ...complete().party2, noticeAddress: address },
+      });
+      const page = await blockPage(data, "a very long notice address");
+      const pages = await textItemsByPage(await renderPdf(<NdaPdf data={data} />));
+      // The last words of the address must survive, not be clipped away.
+      expect(pages[page].join(" ")).toContain("Longest Street Name In The State,");
+    });
+
+    it("carries the template's notice-address guidance", async () => {
+      // The narrow label column hyphenates it across two lines, so the run is
+      // read back as "…postal ad-" / "dress"; match the part that stays whole.
+      const text = (await render(complete())).join(" ");
+      expect(text).toContain("Use either email or postal");
+    });
+  });
+
   it("shows bracketed prompts for fields the user has not filled", async () => {
     const text = (await render(createDefaultFormData())).join(" ");
     expect(text).toContain("[Fill in state]");
