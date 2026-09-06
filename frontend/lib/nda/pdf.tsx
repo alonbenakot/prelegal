@@ -96,8 +96,13 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderLeftWidth: 1,
     borderColor: COLORS.rule,
-    fontFamily: "Times-Bold",
-    fontSize: 9,
+  },
+  rowLabelText: { fontFamily: "Times-Bold", fontSize: 9 },
+  rowHint: {
+    fontFamily: "Times-Italic",
+    fontSize: 8,
+    color: COLORS.muted,
+    marginTop: 1,
   },
   cell: {
     flex: 1,
@@ -164,13 +169,19 @@ const Option = ({
 
 const SignatureRow = ({
   label,
+  hint,
   cells,
 }: {
   label: string;
+  /** The template's own guidance under the row label, where it has any. */
+  hint?: string;
   cells: [React.ReactNode, React.ReactNode];
 }) => (
   <View style={styles.row} wrap={false}>
-    <Text style={styles.rowLabel}>{label}</Text>
+    <View style={styles.rowLabel}>
+      <Text style={styles.rowLabelText}>{label}</Text>
+      {hint ? <Text style={styles.rowHint}>{hint}</Text> : null}
+    </View>
     {cells.map((cell, index) => (
       <View key={index} style={styles.cell}>
         <Text>{cell}</Text>
@@ -198,7 +209,15 @@ function ClauseText({ body }: { body: string }) {
 function SignatureBlock({ parties }: { parties: [Party, Party] }) {
   const [first, second] = parties.map(partyValues);
   return (
-    <View style={styles.table}>
+    // Kept whole: split across a page break, the Company, Notice Address and
+    // Date rows land on the next page with no PARTY 1 / PARTY 2 headings above
+    // them, so nothing on that page says which column belongs to which party.
+    //
+    // The trade is that react-pdf clips an unwrappable block taller than the
+    // page instead of flowing it, which takes a notice address of roughly two
+    // thousand characters — far past anything a real address reaches, and the
+    // split it replaces happened on every document.
+    <View style={styles.table} wrap={false}>
       <View style={styles.row}>
         <Text style={styles.rowLabel} />
         <Text style={styles.columnHeading}>PARTY 1</Text>
@@ -228,6 +247,7 @@ function SignatureBlock({ parties }: { parties: [Party, Party] }) {
       />
       <SignatureRow
         label="Notice Address"
+        hint="Use either email or postal address"
         cells={[
           <Slot key="a" value={first.noticeAddress} />,
           <Slot key="b" value={second.noticeAddress} />,

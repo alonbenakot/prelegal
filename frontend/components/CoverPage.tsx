@@ -64,7 +64,9 @@ function SignatureRow({
       {cells.map((cell, index) => (
         <td
           key={index}
-          className="h-11 border border-slate-300 px-3 py-2 align-top text-sm"
+          // `break-words` so a long notice address wraps inside its cell
+          // instead of pushing the page sideways on a narrow screen.
+          className="h-11 break-words border border-slate-300 px-3 py-2 align-top text-sm"
         >
           {cell}
         </td>
